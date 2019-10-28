@@ -7,6 +7,7 @@
     <title>The Big Bang Theory</title>
 
     <link rel="stylesheet" type="text/css" href="stylesheet.css"> 
+    <script src="gameplay.js"></script>
 </head>
 
 <body>
@@ -14,20 +15,21 @@
         <!-- Opponent -->
         <div class="options-bar" style="transform: rotateY(180deg) rotateX(180deg);">
             <!-- Rock -->
-            <div id="rock"></div>
+            <div class="rock" id="op_rock"></div>
 
             <!-- Paper -->
-            <div id="paper"></div>
+            <div class="paper" id="op_paper"></div>
 
             <!-- Scissors -->
-            <div id="scissors"></div>
+            <div class="scissors" id="op_scissors"></div>
 
             <!-- Lizard -->
-            <div id="lizard"></div>
+            <div class="lizard" id="op_lizard"></div>
 
             <!-- Spock -->
-            <div id="spock"></div>
+            <div class="spock" id="op_spock"></div>
         </div>
+        <div class="text">Opponent</div>
         
         <!-- Board -->
         <div class="board-bar">
@@ -35,10 +37,10 @@
             <div class="matchup">
                 <div class="filler"></div>
                 <div class="text">Round 1</div>
-                <div class="status-box"></div>
-                <div id="chosen_sign"></div>
-                <div id="chosen_sign" style="background-position-y: 0%;"></div>
-                <div class="status-box"></div>
+                <div class="status-box" id="op_outcome_1"></div>
+                <div class="chosen_sign" id="op_sign_1" style="transform: rotateY(180deg) rotateX(180deg);"></div>
+                <div class="chosen_sign" id="sign_1" style="background-position-y: 0%;"></div>
+                <div class="status-box" id="outcome_1"></div>
                 <div class="filler"></div>
             </div>
             
@@ -46,10 +48,10 @@
             <div class="matchup">
                 <div class="filler"></div>
                 <div class="text">Round 2</div>
-                <div class="status-box"></div>
-                <div id="chosen_sign"></div>
-                <div id="chosen_sign" style="background-position-y: 0%;"></div>
-                <div class="status-box"></div>
+                <div class="status-box" id="op_outcome_2"></div>
+                <div class="chosen_sign" id="op_sign_2" style="transform: rotateY(180deg) rotateX(180deg);"></div>
+                <div class="chosen_sign" id="sign_2" style="background-position-y: 0%;"></div>
+                <div class="status-box" id="outcome_2"></div>
                 <div class="filler"></div>    
             </div> 
 
@@ -57,10 +59,10 @@
             <div class="matchup">
                 <div class="filler"></div>
                 <div class="text">Round 3</div>
-                <div class="status-box"></div>
-                <div id="chosen_sign"></div>
-                <div id="chosen_sign" style="background-position-y: 0%;"></div>
-                <div class="status-box"></div>
+                <div class="status-box" id="op_outcome_3"></div>
+                <div class="chosen_sign" id="op_sign_3" style="transform: rotateY(180deg) rotateX(180deg);"></div>
+                <div class="chosen_sign" id="sign_3" style="background-position-y: 0%;"></div>
+                <div class="status-box" id="outcome_3"></div>
                 <div class="filler"></div>    
             </div> 
 
@@ -68,29 +70,37 @@
             <div id="result">
                 <!--<div class="filler"></div>-->
                 <div class="text" style="transform: translateY(-2vh);">Result</div>
-                <div class="result-box" style="margin-bottom: 4vh;"></div>
-                <div class="result-box" ></div>
+                <div class="result-box" id="result_op" style="margin-bottom: 2vh;"></div>
+                <div class="result-box" id="result_you"></div>
                 <!--<div class="filler"></div>-->
             </div> 
 
         </div>
 
+        <!-- Game interactor -->
+        <div class="interactor">
+            <div class="interactor-text" id="js_interactor"> Hey, are you ready to begin? </div>
+            <div class="interactor-box" id="start" onclick=startGame() style="margin-left: 1vh; margin-right: 1vh;"><div id="yes">Y</div></div>
+            <div class="interactor-box" id="close" onclick=closeGame()><div id="no">N</div></div>
+        </div>
+        
+        <div class="text">You</div>
         <!-- Player -->
         <div class="options-bar">
             <!-- Rock -->
-            <div id="rock"></div>
+            <div class="rock" id="rock"></div>
 
             <!-- Paper -->
-            <div id="paper"></div>
+            <div class="paper" id="paper"></div>
 
             <!-- Scissors -->
-            <div id="scissors"></div>
+            <div class="scissors" id="scissors"></div>
 
             <!-- Lizard -->
-            <div id="lizard"></div>
+            <div class="lizard" id="lizard"></div>
 
             <!-- Spock -->
-            <div id="spock"></div>
+            <div class="spock" id="spock"></div>
         </div>
     </div>    
 </body>

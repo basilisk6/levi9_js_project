@@ -1,4 +1,4 @@
-#rock {
+.rock {
     background-image: url("images/rock.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -8,19 +8,19 @@
     flex-grow: 1;
 }
 
-#chosen_sign {
+.chosen_sign {
     background-image: url("images/question.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position-x: 50%;
     background-position-y: 100%;
 
-    margin: 5px;
+    margin: 2px;
     flex-grow: 0.5;
 }
 
 
-#paper {
+.paper {
     background-image: url("images/paper.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -30,7 +30,7 @@
     flex-grow: 1;
 }
 
-#scissors {
+.scissors {
     background-image: url("images/scissors.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -40,7 +40,7 @@
     flex-grow: 1;
 }
 
-#lizard {
+.lizard {
     background-image: url("images/lizard.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -50,7 +50,7 @@
     flex-grow: 1;
 }
 
-#spock {
+.spock {
     background-image: url("images/spock.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -63,7 +63,7 @@
 /* ########################################## */
 
 body {
-    background-color: lightgray;
+    background-color: lightblue;
     width: 98vw;
     height: 97.5vh;
     align-items: center;
@@ -84,7 +84,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    flex-grow: 0.15;
+    flex-grow: 0.25;
 
     background-color: black;
     border: 1px solid black;
@@ -165,4 +165,44 @@ body {
     align-self: center;
     font-size: 1.5vw;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ###################### */
+
+
+.interactor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    justify-content: center;
+    cursor: default;
+
+    transform: translateY(-7vh);
+
+    height: 6vh;
+}
+
+.interactor-text {
+    display: flex;
+
+    font-size: 1.5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.interactor-box {
+    display: flex;
+
+    border: 1px solid black;
+    border-radius: 14px;
+    
+    justify-content: center;
+
+    width: 2.4vw;
+    height: 2vw;
+
+    background-color: white;
+
+    font-size: 1.5vw;
+    font-family: 'Times New Roman', Times, serif;
 }
