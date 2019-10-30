@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <div class="body-filler"> </div>
     <div id="game-container">
         <!-- Opponent -->
         <div class="options-bar" style="transform: rotateY(180deg) rotateX(180deg);">
@@ -29,8 +30,12 @@
             <!-- Spock -->
             <div class="spock" id="op_spock"></div>
         </div>
-        <div class="text">Opponent</div>
-        
+        <div class="text">
+            Opponent
+        </div>
+
+        <div id="restart-game" onclick=newGame()>Play again</div>
+
         <!-- Board -->
         <div class="board-bar">
             <!-- Round1 -->
@@ -102,6 +107,11 @@
             <!-- Spock -->
             <div class="spock" id="spock"></div>
         </div>
-    </div>    
+    </div>  
+    <div class="body-filler">
+        <div class="h2p" onmouseover=showRules() onmouseout=hideRules()></div>
+        <div id="ruleset" style="visibility: hidden;"></div>
+    </div>
+
 </body>
 </html>

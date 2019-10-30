@@ -63,13 +63,14 @@
 /* ########################################## */
 
 body {
-    background-color: lightblue;
+    background-image: radial-gradient(circle, white 30%, lightblue, skyblue);
     width: 98vw;
     height: 97.5vh;
-    align-items: center;
     
+    justify-content: center;
+
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 #game-container {
@@ -130,6 +131,12 @@ body {
 
     width: 1vw;
     height: 1vw;
+}
+
+.body-filler {
+    display: flex; 
+    flex-direction: row;
+    width: 33%; 
 }
 
 .filler {
@@ -194,6 +201,7 @@ body {
     display: flex;
 
     border: 1px solid black;
+    border-bottom: 2px solid black;
     border-radius: 14px;
     
     justify-content: center;
@@ -205,4 +213,55 @@ body {
 
     font-size: 1.5vw;
     font-family: 'Times New Roman', Times, serif;
+}
+
+#restart-game {
+    display: flex;
+
+    border: 1px solid black;
+    border-bottom: 2px solid black;
+    border-radius: 14px;
+    
+    align-self: center;
+    justify-content: center;
+
+    visibility: hidden;
+
+    background-color: white;
+    cursor: default;
+    transform: translateY(7vh);
+
+    width: 8vw;
+    height: 2vw;
+
+    font-size: 1.2vw; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ############################# */
+
+.h2p {
+    display: flex;
+
+    background-image: url("images/h2p.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    
+    width: 3vw;
+    height: 7vh;
+}
+
+#ruleset {
+    display: flex;
+
+    background-image: url("images/rules.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 15%;
+
+    width: 15vw;
+    height: 60vh;
 }

@@ -9,6 +9,7 @@ var scoreOp = 0;
 var scoreYou = 0;
 var opChoice;
 
+var resetInd = false;
 var tieInd = false;
 var gameOver = false;
 
@@ -16,6 +17,12 @@ function startGame(){
     document.getElementById('js_interactor').innerText = 'Choose your sign.';
     document.getElementById('start').style.display = 'none';
     document.getElementById('close').style.display = 'none';
+
+    if (resetInd) {
+        setSign('sign_'+(round+1), 'question');
+        document.getElementById('op_sign_'+(round+1)).style.backgroundImage = 'url("images/question.png")';
+        resetInd = false;
+    }
 
     initStates();
     initResult('result_op', scoreOp);
@@ -108,6 +115,7 @@ function nextRound(){
     document.getElementById('start').style.display = 'block';
     if (tieInd) {
         document.getElementById('js_interactor').innerText = "It's a tie! Round: " + (round+1) + ", again.";
+        resetInd = true;
         tieInd = false;
     } else {
         document.getElementById('js_interactor').innerText = "Start round: " + (round+1);
@@ -156,20 +164,40 @@ function youLose(){
 }
 
 function winner(){
-    console.log(scoreOp == 2)
-    console.log(scoreYou)
     if(scoreOp == 2){
         document.getElementById('js_interactor').innerText = "Buzzinga, You lost.";
         gameOver = true;
+
+        console.log(round);
+        document.getElementById('restart-game').innerText = "Play again?";
+        document.getElementById('restart-game').style.visibility = 'visible';
     } else if (scoreYou == 2){
         document.getElementById('js_interactor').innerText = "Congratulations! You win!";
         gameOver = true;
+        
+        console.log(round);
+        document.getElementById('restart-game').innerText = "Play again?";
+        document.getElementById('restart-game').style.visibility = 'visible';
     }
     
+}
+
+function newGame(){
+    location.reload();
 }
 
 function closeGame(){
     document.getElementById('js_interactor').innerText = 'Thanks for playing.';
     document.getElementById('start').style.display = 'none';
     document.getElementById('close').style.display = 'none';
+}
+
+// #################### 
+
+function showRules() {
+    document.getElementById('ruleset').style.visibility = 'visible';
+}
+
+function hideRules() {
+    document.getElementById('ruleset').style.visibility = 'hidden';
 }
