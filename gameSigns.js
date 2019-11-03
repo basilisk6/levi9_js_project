@@ -9,11 +9,11 @@ RockSign.prototype = Object.create(Sign.prototype)
 
 RockSign.prototype.compare = function(otherSign){
     if((otherSign.getName() === ScissorsSign.NAME) || (otherSign.getName() === LizardSign.NAME)){
-        SignCompareOutcome.createWin();
+        return SignCompareOutcome.createWin();
     } else if ((otherSign.getName() === SpockSign.NAME) || (otherSign.getName() === PaperSign.NAME)){
-        SignCompareOutcome.createLoss();
+        return SignCompareOutcome.createLoss();
     } else {
-        SignCompareOutcome.createTie();
+        return SignCompareOutcome.createTie();
     }
 }
 /* End of Class Rock */
@@ -29,11 +29,11 @@ PaperSign.prototype = Object.create(Sign.prototype)
 
 PaperSign.prototype.compare = function(otherSign){
     if((otherSign.getName() === RockSign.NAME) || (otherSign.getName() === SpockSign.NAME)){
-        SignCompareOutcome.createWin();
+        return SignCompareOutcome.createWin();
     } else if ((otherSign.getName() === ScissorsSign.NAME) || (otherSign.getName() === LizardSign.NAME)){
-        SignCompareOutcome.createLoss();
+        return SignCompareOutcome.createLoss();
     } else {
-        SignCompareOutcome.createTie();
+        return SignCompareOutcome.createTie();
     }
 }
 /* End of Class Paper */
@@ -49,18 +49,18 @@ ScissorsSign.prototype = Object.create(Sign.prototype)
 
 ScissorsSign.prototype.compare = function(otherSign){
     if((otherSign.getName() === PaperSign.NAME) || (otherSign.getName() === LizardSign.NAME)){
-        SignCompareOutcome.createWin();
+        return SignCompareOutcome.createWin();
     } else if ((otherSign.getName() === SpockSign.NAME) || (otherSign.getName() === RockSign.NAME)){
-        SignCompareOutcome.createLoss();
+        return SignCompareOutcome.createLoss();
     } else {
-        SignCompareOutcome.createTie();
+        return SignCompareOutcome.createTie();
     }
 }
 /* End of Class Scissors */
 
 /* Class Lizard */
 function LizardSign(){
-    Sign.call(this, LizardSign.NAME, 'images/Lizard.png');
+    Sign.call(this, LizardSign.NAME, 'images/lizard.png');
 }
 LizardSign.NAME = 'lizard';
 
@@ -69,11 +69,11 @@ LizardSign.prototype = Object.create(Sign.prototype)
 
 LizardSign.prototype.compare = function(otherSign){
     if((otherSign.getName() === PaperSign.NAME) || (otherSign.getName() === SpockSign.NAME)){
-        SignCompareOutcome.createWin();
+        return SignCompareOutcome.createWin();
     } else if ((otherSign.getName() === RockSign.NAME) || (otherSign.getName() === ScissorsSign.NAME)){
-        SignCompareOutcome.createLoss();
+        return SignCompareOutcome.createLoss();
     } else {
-        SignCompareOutcome.createTie();
+        return SignCompareOutcome.createTie();
     }
 }
 /* End of Class Lizard */
@@ -89,11 +89,11 @@ SpockSign.prototype = Object.create(Sign.prototype)
 
 SpockSign.prototype.compare = function(otherSign){
     if((otherSign.getName() === RockSign.NAME) || (otherSign.getName() === ScissorsSign.NAME)){
-        SignCompareOutcome.createWin();
+        return SignCompareOutcome.createWin();
     } else if ((otherSign.getName() === PaperSign.NAME) || (otherSign.getName() === LizardSign.NAME)){
-        SignCompareOutcome.createLoss();
+        return SignCompareOutcome.createLoss();
     } else {
-        SignCompareOutcome.createTie();
+        return SignCompareOutcome.createTie();
     }
 }
 /* End of Class Spock */
