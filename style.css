@@ -99,9 +99,6 @@ body, html, #root {
     border-bottom: 2px solid black;
     border-radius: 14px;
 
-    /* width: 2.4vw; */
-    /* height: 2vw; */
-
     cursor: pointer;
 
     background-color: white;
@@ -232,7 +229,7 @@ body, html, #root {
     background-position-x: 50%;
     background-position-y: 50%;
 
-    width: 60%;
+    width: 55%;
     margin-bottom: 0.5vh;
     margin-top: 0.5vh;
     flex-grow: 0.5;

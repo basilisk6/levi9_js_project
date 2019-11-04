@@ -1,4 +1,4 @@
-/* Class Game */
+// Class Game 
 function Game(rootId) {
     this._mUi = {};
     this._mRounds = [];
@@ -13,8 +13,8 @@ function Game(rootId) {
     this._mDidGameStarted = false;
 }
 
-
-/* Start of making UI */
+/* Start of making parts for UI */ 
+// Function that makes whole window that contains of three parts. ###### DONE #####
 function _makeRootContainer(){
     var window = document.createElement('div');
     window.id = 'window';
@@ -29,7 +29,6 @@ function _makeRootContainer(){
     gameContainer.classList.add('game-container');
 
     window.append(windowFillerLeft, gameContainer, windowFillerRight);
-
     return {
         window:window,
         windowFillerLeft:windowFillerLeft,   
@@ -38,6 +37,7 @@ function _makeRootContainer(){
     }
 }
 
+// Function for making game play area: Player and opponent playboards, as well as gameboard. ###### DONE #####
 function _makeGameContainer(){
     var optionsBars = _makeOptionsBars();
 
@@ -54,7 +54,6 @@ function _makeGameContainer(){
     playerText.innerText = 'You';
     playerText.style.textAlign = 'center';
 
-
     return {
         ... optionsBars,
         opponentText:opponentText,
@@ -63,11 +62,25 @@ function _makeGameContainer(){
     }
 }
 
+// Function for adding signs to playboards.
 function _makeOptionsBars(){
-    /* Opponent area */
+    // Opponent area 
     var opponentOptionsBar = document.createElement('div');
     opponentOptionsBar.classList.add('options-bar');
     opponentOptionsBar.style.transform = 'rotateX(180deg) rotateY(180deg)';
+
+    /* Jel moze da se napravi ovakva funkcija? Msm cilj je smanjiti ponavljanja.
+
+    _createOptionsBar(signs){
+        for (sign of signs){
+            var s = document.createElement('div')
+            s.classList.add(sign)
+        }
+    }
+    var opponentOptionsBar = _createOptionsBar(['rock', 'paper', 'scissors', 'lizard', 'spock']) 
+    return { ... _createOptionsBar() }
+    
+    Isto ovako i za playera */
 
     var opponentRockSign = document.createElement('div');
     opponentRockSign.classList.add('rock');
@@ -85,8 +98,7 @@ function _makeOptionsBars(){
     opponentSpockSign.classList.add('spock');
 
     opponentOptionsBar.append(opponentRockSign, opponentPaperSign, opponentScissorsSign, opponentLizardSign, opponentSpockSign);
-    
-    /* Player area */
+    // Player area
     var playerOptionsBar = document.createElement('div');
     playerOptionsBar.classList.add('options-bar');
 
@@ -106,7 +118,6 @@ function _makeOptionsBars(){
     playerSpockSign.classList.add('spock');
 
     playerOptionsBar.append(playerRockSign, playerPaperSign, playerScissorsSign, playerLizardSign, playerSpockSign);
-    
     return {
         opponentOptionsBar:opponentOptionsBar,
         opponentRockSign:opponentRockSign,
@@ -124,9 +135,31 @@ function _makeOptionsBars(){
     }
 }
 
+// Function that represents interactor of the game. Divided into several states. Each state got his own options.
 function _makeInteractor(){
     var interactor = document.createElement('div');
 
+    // States
+    var startState = _startState();
+    var roundState = _roundState();
+    var nextRoundState = _nextRoundState(); 
+    var tiedRoundState = _tiedRoundState();
+    var endState = _endState();
+
+    interactor.append(startState.startState, roundState.roundState, nextRoundState.nextRoundState, 
+                      tiedRoundState.tiedRoundState, endState.endState);
+    return {
+        interactor:interactor,
+        ... startState,
+        ... roundState,
+        ... nextRoundState,
+        ... tiedRoundState,
+        ... endState
+    }
+}
+
+// Start state of interactor.
+function _startState(){
     var startState = document.createElement('div');
     startState.id = 'start-state';
 
@@ -145,12 +178,27 @@ function _makeInteractor(){
     stopButton.innerText = 'N';
     
     startState.append(startText, startButton, stopButton);
+    return {
+        startState:startState,
+        startButton:startButton,
+        stopButton:stopButton,
+    }
+}
 
+// Round state of interactor.
+function _roundState(){
     var roundState = document.createElement('div');
     roundState.classList.add('hidden');
     roundState.id = 'round-state';
     roundState.innerText = 'Choose your sign.';
 
+    return {
+        roundState:roundState
+    }
+}
+
+// Next round state of interactor.
+function _nextRoundState(){
     var nextRoundState = document.createElement('div');
     nextRoundState.classList.add('hidden');
     nextRoundState.id = 'next-round-state';
@@ -169,40 +217,45 @@ function _makeInteractor(){
     nextRoundButtonStop.innerText = 'N';
 
     nextRoundState.append(nextRoundText, nextRoundButtonStart, nextRoundButtonStop);
+    return {
+        nextRoundState:nextRoundState,
+        nextRoundButtonStart:nextRoundButtonStart,
+        nextRoundButtonStop:nextRoundButtonStop
+    }
+}
 
+// State of interactor when the game is tie.
+function _tiedRoundState(){
     var tiedRoundState = document.createElement('div');
     tiedRoundState.id = 'tied-state';
     tiedRoundState.classList.add('hidden');
 
     var tiedRoundStateText = document.createElement('div');
     tiedRoundStateText.innerText = 'The Round is draw. Play again: ';
+    tiedRoundStateText.style.marginRight = '0.5vw';
     
     var tiedRoundStateButton = document.createElement('button');
     tiedRoundStateButton.classList.add('interactor-button');
     tiedRoundStateButton.innerText = 'Go!';
 
     tiedRoundState.append(tiedRoundStateText, tiedRoundStateButton);
+    return {
+        tiedRoundState:tiedRoundState,
+        tiedRoundStateButton:tiedRoundStateButton
+    }
+}
 
+// End state of interactor.
+function _endState(){
     var endState = document.createElement('div');
     endState.classList.add('hidden');
     endState.innerText = 'Thanks for playing!';
-
-    interactor.append(startState, roundState, nextRoundState, tiedRoundState, endState);
     return {
-        interactor:interactor,
-        startState:startState,
-        roundState:roundState,
-        nextRoundState:nextRoundState,
-        startButton:startButton,
-        stopButton:stopButton,
-        nextRoundButtonStart:nextRoundButtonStart,
-        nextRoundButtonStop:nextRoundButtonStop,
-        tiedRoundState:tiedRoundState,
-        tiedRoundStateButton:tiedRoundStateButton,
         endState:endState
     }
 }
 
+// Function that makes board of the game. It contains rounds and result/score.
 function _makeBoard(){
     var board = document.createElement('div');
     board.classList.add('board')
@@ -210,6 +263,18 @@ function _makeBoard(){
     var roundsContainer = document.createElement('div');
     roundsContainer.classList.add('rounds-container');
 
+    var scoreContainer = _makeScoreContainer();
+
+    board.append(roundsContainer, scoreContainer.scoreContainer);
+    return {
+        board:board,
+        roundsContainer: roundsContainer,
+        ... scoreContainer
+    }
+}
+
+// Function that makes score container for board.
+function _makeScoreContainer(){
     var scoreContainer = document.createElement('div');
     scoreContainer.classList.add('score-container');
 
@@ -223,20 +288,16 @@ function _makeBoard(){
 
     var playerScore = document.createElement('div');
     playerScore.classList.add('score-box');
-
+    
     scoreContainer.append(scoreText, opponentScore, playerScore);
-
-    board.append(roundsContainer, scoreContainer);
     return {
-        board:board,
-        roundsContainer: roundsContainer,
-        scoreText:scoreText,
-        scoreContainer: scoreContainer,
-        opponentScore: opponentScore,
-        playerScore: playerScore
+        scoreContainer:scoreContainer,
+        opponentScore:opponentScore,
+        playerScore:playerScore
     }
 }
 
+// function that makes round of the game. ###### DONE #####
 function _makeRound(roundNumber){
     var roundContainer = document.createElement('div');
     roundContainer.classList.add('round-container');
@@ -250,6 +311,7 @@ function _makeRound(roundNumber){
 
     var opponentSign = document.createElement('div');
     opponentSign.classList.add('chosen-sign');
+    opponentSign.style.transform = 'rotateX(180deg) rotateY(180deg)';
 
     var playerSign = document.createElement('div');
     playerSign.classList.add('chosen-sign');
@@ -258,7 +320,6 @@ function _makeRound(roundNumber){
     statusBoxPlayer.classList.add('status-box');
 
     roundContainer.append(roundNumberText, statusBoxOpponent, opponentSign, playerSign, statusBoxPlayer);
-
     return {
         roundContainer:roundContainer,
         statusBoxOpponent:statusBoxOpponent, 
@@ -267,8 +328,9 @@ function _makeRound(roundNumber){
         statusBoxPlayer:statusBoxPlayer
     }
 }
+/* End of making parts for UI */
 
-/* End of making UI */
+// UI maker.
 Game.prototype._makeUi = function(){
     this._mUi = {
         ... _makeRootContainer(),
@@ -278,23 +340,32 @@ Game.prototype._makeUi = function(){
         rounds: []
     }
     this._mUi.gameContainer.append(this._mUi.opponentOptionsBar, this._mUi.opponentText, 
-                                                this._mUi.playAgainButton, this._mUi.board, this._mUi.interactor, 
-                                                this._mUi.playerText, this._mUi.playerOptionsBar);
+                                   this._mUi.playAgainButton, this._mUi.board, this._mUi.interactor, 
+                                   this._mUi.playerText, this._mUi.playerOptionsBar);
+                                   
     this._mRoot.append(this._mUi.window);
+    this._bindHandlers();
+}
+
+// Function that handles all bind functions
+Game.prototype._bindHandlers = function(){
     this._mUi.stopButton.onclick = this._handleStartNoButton.bind(this);
     this._mUi.startButton.onclick = this._handleStartYesButton.bind(this);
+
     this._mUi.playerRockSign.onclick = this._handleChooseSign.bind(this, RockSign);
     this._mUi.playerPaperSign.onclick = this._handleChooseSign.bind(this, PaperSign);
     this._mUi.playerScissorsSign.onclick = this._handleChooseSign.bind(this, ScissorsSign);
     this._mUi.playerLizardSign.onclick = this._handleChooseSign.bind(this, LizardSign);
     this._mUi.playerSpockSign.onclick = this._handleChooseSign.bind(this, SpockSign);
-
+    
     this._mUi.nextRoundButtonStart.onclick = this._handleNextRoundYesButton.bind(this);
     this._mUi.nextRoundButtonStop.onclick = this._handleNextRoundNoButton.bind(this);
-
+    
     this._mUi.tiedRoundStateButton.onclick = this._handleTiedRoundButton.bind(this);
+    this._mUi.playAgainButton.onclick = this.restart.bind(this);
 }
 
+// Next couple of functions are handlers for interactor. They contain indicators for UI setting and drawing. 
 Game.prototype._handleStartNoButton = function(){
     this._mDidGameFinished = true;
     this._draw();
@@ -319,6 +390,11 @@ Game.prototype._handleTiedRoundButton = function(){
     this.startRound();
 }
 
+Game.prototype._handleChooseSign = function(signConstructor){
+    this.playSign(new signConstructor());
+}
+
+// Function for getting sign for your opponent
 function getRandomSign(){
     var r = Math.floor(Math.random() * 5);
     switch(r){
@@ -335,21 +411,17 @@ function getRandomSign(){
     }
 }
 
-Game.prototype._handleChooseSign = function(signConstructor){
-    this.playSign(new signConstructor());
-
-}
-
+// Function that gives API.
 Game.prototype.start = function(){
     this._makeUi();
 }
 
+// Function that starts round.
 Game.prototype.startRound = function(){
     if(this._mRounds.length > 0){
         var lastRound = this._mRounds[this._mRounds.length - 1]
         if (lastRound.getOutcome().isItTie()){
             lastRound.setSigns(null, null);    
-            console.log('hi');
             this._draw();
             return;
         }
@@ -364,6 +436,7 @@ Game.prototype.startRound = function(){
     this._draw();
 }
 
+// Function that plays signs, and depending of the outcome calls function that updates score.
 Game.prototype.playSign = function(playerSign){
     var opponentSign = getRandomSign();
     var lastRound = this._mRounds[this._mRounds.length-1];
@@ -376,6 +449,7 @@ Game.prototype.playSign = function(playerSign){
 
 }
 
+// Function that updates score of the game depending on the outcome of the round.
 Game.prototype.updateScore = function(outcome){
     if (outcome.didOpponentWin()){
         this._mResult.opponent++;
@@ -384,14 +458,38 @@ Game.prototype.updateScore = function(outcome){
     }
 }
 
+// Function that restarts the game.
 Game.prototype.restart = function(){
+    this._mUi.roundsContainer.innerHTML = '';
 
+    this._mUi.rounds = [];
+    this._mRounds = [];
+    this._mResult = {
+        player : 0,
+        opponent : 0,
+    };
+
+    this._mDidGameFinished = false;
+    this._mDidGameStarted = false;
+    this._draw();
 }
 
+// Function that draws the UI depending on the state of the game.
 Game.prototype._draw = function(){
+    if (this._mDidGameStarted === false && this._mDidGameFinished === false){
+        hideElements([this._mUi.endState, this._mUi.roundState, this._mUi.nextRoundState]);
+        showElements([this._mUi.startState]);
+
+        hideElements([this._mUi.playAgainButton]);
+        this._mUi.playerScore.innerText = this._mResult.player;
+        this._mUi.opponentScore.innerText = this._mResult.opponent;
+    }
+
     if (this._mDidGameFinished){
         hideElements([this._mUi.startState, this._mUi.roundState, this._mUi.nextRoundState]);
         showElements([this._mUi.endState]);
+
+        showElements([this._mUi.playAgainButton]);
         return;
     }
 
@@ -415,32 +513,14 @@ Game.prototype._draw = function(){
 
             var currentRoundOutcome = currentRound.getOutcome();
             if (currentRoundOutcome.stillNotPlayed()){
-                currentRoundUi.statusBoxOpponent.style.background = undefined;
-                currentRoundUi.statusBoxPlayer.style.background = undefined;
-                
-                currentRoundUi.opponentSign.style.backgroundImage = 'url("images/question.png")';
-                currentRoundUi.playerSign.style.backgroundImage = 'url("images/question.png")';
+                setOutcomeDetails(currentRoundUi, currentRound, undefined, undefined);
             } else if (currentRoundOutcome.didPlayerWin()){
-                currentRoundUi.statusBoxOpponent.style.background = 'red';
-                currentRoundUi.statusBoxPlayer.style.background = 'green';
-                
-                currentRoundUi.opponentSign.style.backgroundImage = 'url("'+currentRound.getOpponentSign().getImgUrl()+'")';
-                currentRoundUi.playerSign.style.backgroundImage = 'url("'+currentRound.getPlayerSign().getImgUrl()+'")';    
+                setOutcomeDetails(currentRoundUi, currentRound, 'red', 'green'); 
             }  else if (currentRoundOutcome.didOpponentWin()){
-                currentRoundUi.statusBoxOpponent.style.background = 'green';
-                currentRoundUi.statusBoxPlayer.style.background = 'red';
-                
-                currentRoundUi.opponentSign.style.backgroundImage = 'url("'+currentRound.getOpponentSign().getImgUrl()+'")';
-                currentRoundUi.playerSign.style.backgroundImage = 'url("'+currentRound.getPlayerSign().getImgUrl()+'")';    
+                setOutcomeDetails(currentRoundUi, currentRound, 'green', 'red');
             } else {
-                currentRoundUi.statusBoxOpponent.style.background = undefined;
-                currentRoundUi.statusBoxPlayer.style.background = undefined;
-                
-                currentRoundUi.opponentSign.style.backgroundImage = 'url("'+currentRound.getOpponentSign().getImgUrl()+'")';
-                currentRoundUi.playerSign.style.backgroundImage = 'url("'+currentRound.getPlayerSign().getImgUrl()+'")';       
+                setOutcomeDetails(currentRoundUi, currentRound, undefined, undefined);    
             }
-
-        
         }
 
         this._mUi.playerScore.innerText = this._mResult.player;
@@ -448,14 +528,19 @@ Game.prototype._draw = function(){
     }
 }
 
-// function setOutcomeDetails(opponentColor, playerColor, opponentUrl, playerUrl){
-//     currentRoundUi.statusBoxOpponent.style.background = opponentColor;
-//     currentRoundUi.statusBoxPlayer.style.background = playerColor;
+// Function that sets details of the outcome in UI. It sets color and signs both of opponent and player.
+function setOutcomeDetails(currentRoundUi, currentRound, opponentColor, playerColor){
+    currentRoundUi.statusBoxOpponent.style.background = opponentColor;
+    currentRoundUi.statusBoxPlayer.style.background = playerColor;
     
-//     currentRoundUi.opponentSign.style.backgroundImage = 'url("'+currentRound.getOpponentSign().getImgUrl()+'")';
-//     currentRoundUi.playerSign.style.backgroundImage = 'url("'+currentRound.getPlayerSign().getImgUrl()+'")';
-// }
+    var opponentUrl = currentRound.getOpponentSign() !== null ? currentRound.getOpponentSign().getImgUrl() : 'images/question.png';
+    var playerUrl = currentRound.getPlayerSign() !== null ? currentRound.getPlayerSign().getImgUrl() : 'images/question.png';
 
+    currentRoundUi.opponentSign.style.backgroundImage = 'url("'+opponentUrl+'")';
+    currentRoundUi.playerSign.style.backgroundImage = 'url("'+playerUrl+'")';
+}
+
+// Function that hides elements. Mainly used for the interactor part.
 function hideElements(elements){
     for (var el of elements) {
         if (el !== undefined && el !== null && el.classList !== undefined){
@@ -464,6 +549,7 @@ function hideElements(elements){
     }
 }
 
+// Function that shows elements. Mainly used for the interactor part.
 function showElements(elements){
     for (var el of elements) {
         if (el !== undefined && el !== null && el.classList !== undefined){
