@@ -166,6 +166,35 @@ body, html, #root {
     align-items: center;
 }
 
+#ruleset {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+}
+
+#rules-icon {
+    background-image: url("images/h2p.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+
+    height: 8vh;
+    flex-grow: 0.2;
+}
+
+#rules-image {
+    background-image: url("images/rules.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+
+    width: 20%;
+    height: 50%;
+    flex-grow: 3;
+}
 
 .hidden {
     display: none!important;

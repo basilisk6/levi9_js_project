@@ -14,7 +14,7 @@ function Game(rootId) {
 }
 
 /* Start of making parts for UI */ 
-// Function that makes whole window that contains of three parts. ###### DONE #####
+// Function that makes whole window that contains of three parts. 
 function _makeRootContainer(){
     var window = document.createElement('div');
     window.id = 'window';
@@ -37,7 +37,27 @@ function _makeRootContainer(){
     }
 }
 
-// Function for making game play area: Player and opponent playboards, as well as gameboard. ###### DONE #####
+// Function that shows instructions of how to play games/game rules.
+function _makeRulesContainer(){
+    var ruleSet = document.createElement('div');
+    ruleSet.id = 'ruleset';
+
+    var rulesIcon = document.createElement('div');
+    rulesIcon.id = 'rules-icon';
+
+    var rulesImage = document.createElement('div');
+    rulesImage.id = 'rules-image';
+    rulesImage.classList.add('hidden');
+
+    ruleSet.append(rulesIcon, rulesImage);
+    return {
+        ruleSet:ruleSet,
+        rulesIcon:rulesIcon,
+        rulesImage:rulesImage
+    }
+}
+
+// Function for making game play area: Player and opponent playboards, as well as gameboard. 
 function _makeGameContainer(){
     var optionsBars = _makeOptionsBars();
 
@@ -297,7 +317,7 @@ function _makeScoreContainer(){
     }
 }
 
-// function that makes round of the game. ###### DONE #####
+// function that makes round of the game. 
 function _makeRound(roundNumber){
     var roundContainer = document.createElement('div');
     roundContainer.classList.add('round-container');
@@ -335,6 +355,7 @@ Game.prototype._makeUi = function(){
     this._mUi = {
         ... _makeRootContainer(),
         ... _makeGameContainer(),
+        ... _makeRulesContainer(),
         ... _makeBoard(),
         ... _makeInteractor(),
         rounds: []
@@ -342,7 +363,7 @@ Game.prototype._makeUi = function(){
     this._mUi.gameContainer.append(this._mUi.opponentOptionsBar, this._mUi.opponentText, 
                                    this._mUi.playAgainButton, this._mUi.board, this._mUi.interactor, 
                                    this._mUi.playerText, this._mUi.playerOptionsBar);
-                                   
+    this._mUi.windowFillerRight.append(this._mUi.ruleSet);
     this._mRoot.append(this._mUi.window);
     this._bindHandlers();
 }
@@ -363,6 +384,9 @@ Game.prototype._bindHandlers = function(){
     
     this._mUi.tiedRoundStateButton.onclick = this._handleTiedRoundButton.bind(this);
     this._mUi.playAgainButton.onclick = this.restart.bind(this);
+
+    this._mUi.rulesIcon.onmouseover = this._handleHoverOnRulesImage.bind(this);
+    this._mUi.rulesIcon.onmouseout = this._handleHoverOutRulesImage.bind(this);
 }
 
 // Next couple of functions are handlers for interactor. They contain indicators for UI setting and drawing. 
@@ -392,6 +416,15 @@ Game.prototype._handleTiedRoundButton = function(){
 
 Game.prototype._handleChooseSign = function(signConstructor){
     this.playSign(new signConstructor());
+}
+
+// Handlers for hovering/offhovering rules icon that makes rules visible/unvisible.
+Game.prototype._handleHoverOnRulesImage = function(){
+    showElements([this._mUi.rulesImage]);
+}
+
+Game.prototype._handleHoverOutRulesImage = function(){
+    hideElements([this._mUi.rulesImage]);
 }
 
 // Function for getting sign for your opponent
