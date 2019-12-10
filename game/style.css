@@ -107,7 +107,7 @@ body, html, #root {
     font-family: 'Times New Roman', Times, serif;
 }
 
-.rounds-container{
+.rounds-container {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -118,7 +118,7 @@ body, html, #root {
     overflow-x: auto;
 }
 
-.round-container{
+.round-container {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
@@ -157,7 +157,7 @@ body, html, #root {
     height: 3.2vw;
 }
 
-.score-container{
+.score-container {
     display: flex;
     flex-direction: column;
     width: 20%;
@@ -221,6 +221,7 @@ body, html, #root {
 
     flex-grow: 1;
 }
+
 .scissors {
     background-image: url("images/scissors.png");
     background-size: contain;
@@ -263,5 +264,4 @@ body, html, #root {
     margin-top: 0.5vh;
     flex-grow: 0.5;
 }
-
 /* End of signs area */
