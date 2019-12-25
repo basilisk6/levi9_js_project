@@ -67,7 +67,7 @@ function _makeGameContainer(){
 
     var playAgainButton = document.createElement('button');
     playAgainButton.classList.add('interactor-button', 'hidden');
-    playAgainButton.innerText = 'Play again?';
+    playAgainButton.innerText = 'Play again';
     playAgainButton.style.width = '30%';
 
     var playerText = document.createElement('div');
@@ -89,19 +89,6 @@ function _makeOptionsBars(){
     opponentOptionsBar.classList.add('options-bar');
     opponentOptionsBar.style.transform = 'rotateX(180deg) rotateY(180deg)';
 
-    /* Jel moze da se napravi ovakva funkcija? Msm cilj je smanjiti ponavljanja.
-
-    _createOptionsBar(signs){
-        for (sign of signs){
-            var s = document.createElement('div')
-            s.classList.add(sign)
-        }
-    }
-    var opponentOptionsBar = _createOptionsBar(['rock', 'paper', 'scissors', 'lizard', 'spock']) 
-    return { ... _createOptionsBar() }
-    
-    Isto ovako i za playera */
-
     var opponentRockSign = document.createElement('div');
     opponentRockSign.classList.add('rock');
 
@@ -118,6 +105,7 @@ function _makeOptionsBars(){
     opponentSpockSign.classList.add('spock');
 
     opponentOptionsBar.append(opponentRockSign, opponentPaperSign, opponentScissorsSign, opponentLizardSign, opponentSpockSign);
+    
     // Player area
     var playerOptionsBar = document.createElement('div');
     playerOptionsBar.classList.add('options-bar');
@@ -269,9 +257,20 @@ function _tiedRoundState(){
 function _endState(){
     var endState = document.createElement('div');
     endState.classList.add('hidden');
-    endState.innerText = 'Thanks for playing!';
+    endState.innerText = 'Enter nickname:';
+
+    var nickArea = document.createElement('input');
+    nickArea.classList.add('input');
+
+    var enterNickButton = document.createElement('button');
+    enterNickButton.classList.add('interactor-button');
+    enterNickButton.innerText = 'Enter';
+
+    endState.append(nickArea, enterNickButton);
     return {
-        endState:endState
+        endState:endState,
+        nickArea:nickArea,
+        enterNickButton:enterNickButton
     }
 }
 
@@ -387,6 +386,8 @@ Game.prototype._bindHandlers = function(){
 
     this._mUi.rulesIcon.onmouseover = this._handleHoverOnRulesImage.bind(this);
     this._mUi.rulesIcon.onmouseout = this._handleHoverOutRulesImage.bind(this);
+
+    this._mUi.enterNickButton.onclick = this._handleEnterNickButton.bind(this);
 }
 
 // Next couple of functions are handlers for interactor. They contain indicators for UI setting and drawing. 
@@ -427,7 +428,14 @@ Game.prototype._handleHoverOutRulesImage = function(){
     hideElements([this._mUi.rulesImage]);
 }
 
-// Function for getting sign for your opponent
+// Handler for sending nickname and points to server.
+Game.prototype._handleEnterNickButton = function(){
+    // TODO: sending nickname and points to server.
+    console.log("Send this to server");
+    this._mUi.enterNickButton.disabled = true;
+}
+
+// Function for getting sign for your opponent.
 function getRandomSign(){
     var r = Math.floor(Math.random() * 5);
     switch(r){
@@ -504,6 +512,8 @@ Game.prototype.restart = function(){
 
     this._mDidGameFinished = false;
     this._mDidGameStarted = false;
+
+    this._mUi.enterNickButton.disabled = false;
     this._draw();
 }
 
