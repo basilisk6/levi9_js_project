@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,aACI,iBAAkB,CAClB,wBAA2B,CAE3B,qBACJ","file":"main.5b6c2df1.chunk.css","sourcesContent":["#leaderboard {\n    border-radius: 10%;\n    background-color: cadetblue;\n\n    border: 1px solid black;\n}"]}

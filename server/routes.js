@@ -14,7 +14,7 @@ function routeGetScores(server){
         mongoClient.connect(localhost, (connectionError, client)=>{
             const database = client.db(dbName);
             
-            database.collection(collectionName).find().toArray((err, result)=>{
+            database.collection(collectionName).find().sort({Points:-1}).toArray((err, result)=>{
                 if (err) throw err;
 
                 // Removing ID column from collection.

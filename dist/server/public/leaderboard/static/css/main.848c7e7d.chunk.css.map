@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,aACI,YAAa,CACb,WAAY,CACZ,wBAAgC,CAChC,sBAAuB,CACvB,kBAAmB,CAEnB,qBACJ","file":"main.848c7e7d.chunk.css","sourcesContent":["#leaderboard {\n    display: flex;\n    margin: 10px;\n    background-color: cornflowerblue;\n    justify-content: center;\n    border-radius: 15px;\n\n    border: 1px solid black;\n}"]}
